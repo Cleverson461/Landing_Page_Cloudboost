@@ -1,0 +1,32 @@
+@mixin flex-center{
+  display: flex;
+  align-items: center;
+}
+
+@mixin flexCenterJustify{
+  @include flex-center;
+  justify-content: space-between;
+}
+
+@mixin flexTotalCenter{
+  @include flex-center;
+  justify-content: center;
+}
+
+$breakpoints: (
+  'laptop': 1220px,
+  'tablet': 991px,
+  'mobile': 560px
+);
+
+@mixin responsive($breakpoint-name){
+  @if map-has-key($breakpoints, $breakpoint-name){
+    // executar o que estiver aqui dentro
+    @media (max-width: map-get($breakpoints, $breakpoint-name)) {
+      @content;
+    }
+  } @else{
+    // executar aqui caso o if acima der falso
+    @warn "Este breakpoint que você definiu não existe!"
+  }
+}
